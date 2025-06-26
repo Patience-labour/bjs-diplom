@@ -2,24 +2,22 @@
 
 let user = new UserForm();
 
-user.loginFormCallback = data => console.log(data);
+user.loginFormCallback = data => {
+    ApiConnector.login(data, response => {
+        if (response.success) {
+            location.reload();
+        } else {
+            user.setLoginErrorMessage(response.error || "Неизвестная ошибка");
+        }
+    });
+};
 
-ApiConnector.login(data, (response) => {
-    console.log('Ответ от сервера: ', response);
-
-    if(response.success) {
-        location.reload()
-    } else {
-        throw new Error('Ошибка')
-    }
-})
-
-user.registerFormCallback = data => console.log(data);
-
-ApiConnector.register(data, (response) => {
-        if(response.success) {
-        location.reload()
-    } else {
-        throw new Error('Ошибка')
-    }
-})
+user.registerFormCallback = data => {
+    ApiConnector.register(data, response => {
+        if (response.success) {
+            location.reload();
+        } else {
+            user.setRegisterErrorMessage(response.error || "Неизвестная ошибка");
+        }
+    });
+};
