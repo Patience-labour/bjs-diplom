@@ -19,7 +19,7 @@ ApiConnector.current((response) => {
 const ratesBoard = new RatesBoard();
 
 function updateExchangeRates() {
-    ApiConnector.getRates((response) => {
+    ApiConnector.getStocks((response) => {
         if (response.success) {
             ratesBoard.clearTable();
             ratesBoard.fillTable(response.data);
